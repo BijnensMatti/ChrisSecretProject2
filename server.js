@@ -8,6 +8,7 @@ var https = require('https');
 var mysql = require("mysql");
 var dateTime = require('node-datetime');
 var dt = dateTime.create();
+var klgpath = "";
 dt.offsetInDays(1);
 if(dt.format('w') == 'Sat'){dt.offsetInDays(2);}
 if(dt.format('w') == 'Sun'){dt.offsetInDays(1);}
@@ -60,11 +61,16 @@ app.get('/gethmgjson', function(request, response) {
 
 app.get('/getklgjson', function(request, response) {
    
+   JSDOM.fromURL("https://www.klg-erfurt.de/de/vertretungsplan__459/").then(dom=> {
+    klgpath = dom.window.document.querySelectorAll('.pdf')[0].getAttribute("href");
+    });
+
+
     var options = {
         method: 'GET',
         host: 'www.klg-erfurt.de',
         port: '443',
-        path: "/files/0/1/0/4482.pdf"
+        path: klgpath
     };
 
     var request = https.request(options, function(response2) {
@@ -128,6 +134,6 @@ app.listen(app.get('port'), function() {
 
 app.get('/test', function(request, response) {
    JSDOM.fromURL("https://www.klg-erfurt.de/de/vertretungsplan__459/").then(dom => {
-    response.send(dom.serialize());
+    response.send(dom.window.document.querySelectorAll('.pdf')[0].getAttribute("href"));
    });
 })
