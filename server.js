@@ -59,40 +59,6 @@ app.get('/gethmgjson', function(request, response) {
 
 })
 
-app.get('/getklgjson', function(request, response) {
-   
-   JSDOM.fromURL("https://www.klg-erfurt.de/de/vertretungsplan__459/").then(dom=> {
-    klgpath = dom.window.document.querySelectorAll('.pdf')[0].getAttribute("href");
-    });
-
-
-    var options = {
-        method: 'GET',
-        host: 'www.klg-erfurt.de',
-        port: '443',
-        path: klgpath
-    };
-
-    var request = https.request(options, function(response2) {
-        var data = [];
-
-        response2.on('data', function(chunk) {
-            data.push(chunk);
-        });
-
-        response2.on('end', function() {
-            data = Buffer.concat(data); // do something with data
-            pdf2table.parse(data, function(err, rows, rowsdebug) {
-                if (err) return console.log(err);
-                response.set('Content-Type', 'application/json');
-                response.send(JSON.stringify(rows));
-            });
-        });
-    });
-
-    request.end();
-
-})
 
 app.get('/getkgsjson', function(request, response) {
 
