@@ -125,3 +125,9 @@ app.get('/getdate', function(request, response) {
 app.listen(app.get('port'), function() {
     console.log("Node app is running at localhost:" + app.get('port'))
 })
+
+app.get('/test', function(request, response) {
+   JSDOM.fromURL("https://www.klg-erfurt.de/de/vertretungsplan__459/").then(dom => {
+    response.send(dom.serialize());
+   });
+})
