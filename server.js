@@ -21,6 +21,7 @@ weekday[3]="Do";
 weekday[4]="Fr";
 weekday[5]="Sa";
 weekday[6]="So";
+
 var date = new Date();
 if(date.getDay() == 5){date.setDate(date.getDate() + 3);}
 if(date.getDay() == 6){date.setDate(date.getDate() + 2);}
@@ -35,7 +36,7 @@ app.get('/gethmgjson', function(request, response) {
     var options = {
         method: 'GET',
         host: 'www.hmg-erfurt.de',
-        port: '80',
+        port: '8080',
         path: finalwochentag
     };
 
@@ -66,7 +67,7 @@ app.get('/getkgsjson', function(request, response) {
     var options = {
         method: 'GET',
         host: 'kgs-erfurt.de',
-        port: '80',
+        port: '8080',
         path: "/images/inhalt/download/vplan.pdf"
     };
 
@@ -86,7 +87,7 @@ app.get('/getkgsjson', function(request, response) {
             });
         });
     });
-
+    //close the request body
     request.end();
 
 })
@@ -98,6 +99,7 @@ app.get('/getdate', function(request, response) {
 })
 
 app.listen(app.get('port'), function() {
+    //some consolelogs to make everything nicer
     console.log("Node app is running at localhost:" + app.get('port'))
     console.log("Node app SHOULD be running at 30000");
     console.log("what if its not");
