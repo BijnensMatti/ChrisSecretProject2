@@ -96,6 +96,9 @@ app.get('/getdate', function(request, response) {
 
 app.listen(app.get('port'), function() {
     console.log("Node app is running at localhost:" + app.get('port'))
+    console.log("Node app SHOULD be running at 30000");
+    console.log("what if its not");
+    console.log("thinking");
 })
 
 app.get('/test', function(request, response) {
