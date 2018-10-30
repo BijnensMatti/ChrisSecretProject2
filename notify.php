@@ -4,7 +4,7 @@ $payload = array(
     'url' => 'https://example.com/breaking-news/',
     'content' => 'Check this out! #flightdeal'
 );
-
+echo "before curl";
 $ch = curl_init();
 curl_setopt($ch, CURLOPT_URL, "https://pushapp.pro/publisherapi/pushes/");
 curl_setopt($ch, CURLOPT_POST, true);
