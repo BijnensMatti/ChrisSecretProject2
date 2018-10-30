@@ -29,6 +29,7 @@ var wochentag = weekday[date.getDay()-1];
 var finalwochentag = "/new/vplan/vp/H%20"+wochentag+"%20"+formatted+".pdf";
 app.set('port', (process.env.PORT || 5000))
 
+//get some json data from hmg
 app.get('/gethmgjson', function(request, response) {
 
     var options = {
@@ -89,7 +90,9 @@ app.get('/getkgsjson', function(request, response) {
     request.end();
 
 })
-
+/*
+    get the date
+*/
 app.get('/getdate', function(request, response) {
      response.send(finalwochentag);
 })
@@ -101,6 +104,7 @@ app.listen(app.get('port'), function() {
     console.log("thinking");
 })
 
+//test for klg-erfurt
 app.get('/test', function(request, response) {
    JSDOM.fromURL("https://www.klg-erfurt.de/de/vertretungsplan__459/").then(dom => {
     response.send(dom.window.document.querySelectorAll('.pdf')[0].getAttribute("href"));
